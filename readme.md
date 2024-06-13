@@ -27,7 +27,31 @@ If you are using Laravel 5.5 or later, the package will be auto-discovered. For 
 ],
 ```
 
+### Step 2: Publish Configuration File (Optional)
+You can publish the configuration file to customize the seeder path. Run the following command:
+
+
+```bash
+    php artisan vendor:publish --tag=config
+```
+
+
+
 ## Usage
+
+### Configuration
+
+By default, seeders are generated in the database/seeders directory. You can customize this path by modifying the seeder-generator.php configuration file in your Laravel application's config directory
+
+```php
+    // config/seeder-generator.php
+
+    return [
+        'path' => env('SEEDER_PATH', 'database/seeders'),
+    ];
+
+```
+
 
 ### Generate Seeders
 

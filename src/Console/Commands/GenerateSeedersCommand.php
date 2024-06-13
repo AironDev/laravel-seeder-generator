@@ -31,7 +31,11 @@ class GenerateSeedersCommand extends Command
     public function handle()
     {
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
+        $seederPath = config('seeder-generator.path', 'seeders');
 
+        if (!File::exists($seederPath)) {
+            File::makeDirectory($seederPath, 0755, true);
+        }
         foreach ($tables as $table) {
             $this->generateSeeder($table);
         }
