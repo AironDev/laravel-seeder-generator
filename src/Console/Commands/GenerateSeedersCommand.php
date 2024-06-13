@@ -42,7 +42,7 @@ class GenerateSeedersCommand extends Command
         $stub = File::get(__DIR__ . '/stubs/seeder.stub');
         $stub = str_replace(
             ['{{namespace}}', '{{className}}', '{{table}}', '{{data}}'],
-            [$namespace, $className, $table, var_export($data, true)],
+            [$namespace, $className, $table, $data],
             $stub
         );
 
