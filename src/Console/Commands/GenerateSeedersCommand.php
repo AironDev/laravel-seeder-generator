@@ -9,35 +9,20 @@ use Illuminate\Support\Str;
 
 class GenerateSeedersCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'make:seeders';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Generate seeders for each database table';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
-        $seederPath = config('seeder-generator.path', 'seeders');
+        $seederPath = config('seeder-generator.path', database_path('seeders'));
 
         if (!File::exists($seederPath)) {
             File::makeDirectory($seederPath, 0755, true);
         }
+
         foreach ($tables as $table) {
-            $this->generateSeeder($table);
+            $this->generateSeeder($table, $seederPath);
         }
 
         $this->info('Seeders generated successfully.');
@@ -45,10 +30,10 @@ class GenerateSeedersCommand extends Command
         return 0;
     }
 
-    protected function generateSeeder($table)
+    protected function generateSeeder($table, $seederPath)
     {
         $className = Str::studly($table) . 'Seeder';
-        $filePath = database_path("seeders/{$className}.php");
+        $filePath = $seederPath . '/' . $className . '.php';
 
         $columns = DB::getSchemaBuilder()->getColumnListing($table);
         $data = DB::table($table)->get()->toArray();
