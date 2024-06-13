@@ -16,6 +16,7 @@ class GenerateSeedersCommand extends Command
     {
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
         $seederPath = config('seeder-generator.path', database_path('seeders'));
+        $namespace = config('seeder-generator.namespace', 'Database\\Seeders' );
 
         if (!File::exists($seederPath)) {
             File::makeDirectory($seederPath, 0755, true);
@@ -30,7 +31,7 @@ class GenerateSeedersCommand extends Command
         return 0;
     }
 
-    protected function generateSeeder($table, $seederPath)
+    protected function generateSeeder($table, $seederPath, $namespace)
     {
         $className = Str::studly($table) . 'Seeder';
         $filePath = $seederPath . '/' . $className . '.php';
@@ -39,7 +40,11 @@ class GenerateSeedersCommand extends Command
         $data = DB::table($table)->get()->toArray();
 
         $stub = File::get(__DIR__ . '/stubs/seeder.stub');
-        $stub = str_replace(['{{className}}', '{{table}}', '{{data}}'], [$className, $table, var_export($data, true)], $stub);
+        $stub = str_replace(
+            ['{{namespace}}', '{{className}}', '{{table}}', '{{data}}'],
+            [$namespace, $className, $table, var_export($data, true)],
+            $stub
+        );
 
         File::put($filePath, $stub);
     }
