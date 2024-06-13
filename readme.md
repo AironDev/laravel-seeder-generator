@@ -84,4 +84,3 @@ Thank you for considering contributing to the Laravel Seeder Generator package! 
 This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 ```
 
-You can now copy this entire content and use it as your `README.md` file. Make sure to replace any placeholder information with your actual details before publishing.
