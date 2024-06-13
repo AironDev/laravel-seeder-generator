@@ -38,11 +38,15 @@ class GenerateSeedersCommand extends Command
 
         $columns = DB::getSchemaBuilder()->getColumnListing($table);
         $data = DB::table($table)->get()->toArray();
+         // Prepare data for insertion
+         $dataForInsert = array_map(function ($item) {
+            return (array) $item;
+        }, $data);
 
         $stub = File::get(__DIR__ . '/stubs/seeder.stub');
         $stub = str_replace(
             ['{{namespace}}', '{{className}}', '{{table}}', '{{data}}'],
-            [$namespace, $className, $table, $data],
+            [$namespace, $className, $table, var_export($dataForInsert, true)],
             $stub
         );
 
