@@ -23,7 +23,7 @@ class GenerateSeedersCommand extends Command
         }
 
         foreach ($tables as $table) {
-            $this->generateSeeder($table, $seederPath);
+            $this->generateSeeder($table, $seederPath, $namespace);
         }
 
         $this->info('Seeders generated successfully.');
