@@ -2,6 +2,7 @@
     "name": "airondev/laravel-seeder-generator",
     "description": "A Laravel package to generate seeders for each database table.",
     "type": "library",
+    "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
         "illuminate/support": "^7.0|^8.0|^9.0|^10.0"
