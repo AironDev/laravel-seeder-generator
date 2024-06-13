@@ -22,13 +22,15 @@ class SeederGeneratorServiceProvider extends ServiceProvider
 
         // Publish the configuration file
         $this->publishes([
-            __DIR__.'/../config/seeder-generator.php' => config_path('seeder-generator.php'),
+            __DIR__.'config/seeder-generator.php' => config_path('seeder-generator.php'),
         ], 'config');
 
         // Merge default configuration
         $this->mergeConfigFrom(
-            __DIR__.'/../config/seeder-generator.php', 'seeder-generator'
+            __DIR__.'config/seeder-generator.php', 'seeder-generator'
         );
+
+
         
     }
 
