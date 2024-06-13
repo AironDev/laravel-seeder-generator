@@ -3,6 +3,7 @@
 namespace {{namespace}};
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class {{className}} extends Seeder
 {
